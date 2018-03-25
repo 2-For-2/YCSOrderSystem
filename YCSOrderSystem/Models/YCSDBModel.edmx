@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="YCSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="YCSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -70,7 +70,7 @@
           <Key>
             <PropertyRef Name="CustNum" />
           </Key>
-          <Property Name="CustNum" Type="int" Nullable="false" />
+          <Property Name="CustNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
@@ -81,8 +81,9 @@
           <Key>
             <PropertyRef Name="OrderNum" />
           </Key>
-          <Property Name="OrderNum" Type="int" Nullable="false" />
+          <Property Name="OrderNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustNum" Type="int" Nullable="false" />
+          <Property Name="DueDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="ProdOrder">
           <Key>
@@ -97,7 +98,7 @@
           <Key>
             <PropertyRef Name="ProdNum" />
           </Key>
-          <Property Name="ProdNum" Type="int" Nullable="false" />
+          <Property Name="ProdNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProdName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProdDesc" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -108,7 +109,7 @@
           <Key>
             <PropertyRef Name="SalaryNum" />
           </Key>
-          <Property Name="SalaryNum" Type="int" Nullable="false" />
+          <Property Name="SalaryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Benefits" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Deductions" Type="varchar" MaxLength="50" Nullable="false" />
@@ -119,7 +120,7 @@
           <Key>
             <PropertyRef Name="StaffNum" />
           </Key>
-          <Property Name="StaffNum" Type="int" Nullable="false" />
+          <Property Name="StaffNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StaffName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
@@ -130,13 +131,13 @@
           <Key>
             <PropertyRef Name="SuppNum" />
           </Key>
-          <Property Name="SuppNum" Type="int" Nullable="false" />
+          <Property Name="SuppNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SuppName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__OrderTabl__CustN__4316F928">
+        <Association Name="FK__OrderTabl__CustN__693CA210">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
           <ReferentialConstraint>
@@ -148,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__Order__46E78A0C">
+        <Association Name="FK__ProdOrder__Order__6C190EBB">
           <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
           <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -160,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__ProdN__47DBAE45">
+        <Association Name="FK__ProdOrder__ProdN__6D0D32F4">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -172,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__SuppNum__3D5E1FD2">
+        <Association Name="FK__Product__SuppNum__6383C8BA">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -184,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Salary__StaffNum__403A8C7D">
+        <Association Name="FK__Salary__StaffNum__66603565">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -266,23 +267,23 @@
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
+          <AssociationSet Name="FK__OrderTabl__CustN__693CA210" Association="Self.FK__OrderTabl__CustN__693CA210">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="OrderTable" EntitySet="OrderTable" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
+          <AssociationSet Name="FK__ProdOrder__Order__6C190EBB" Association="Self.FK__ProdOrder__Order__6C190EBB">
             <End Role="OrderTable" EntitySet="OrderTable" />
             <End Role="ProdOrder" EntitySet="ProdOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
+          <AssociationSet Name="FK__ProdOrder__ProdN__6D0D32F4" Association="Self.FK__ProdOrder__ProdN__6D0D32F4">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProdOrder" EntitySet="ProdOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
+          <AssociationSet Name="FK__Product__SuppNum__6383C8BA" Association="Self.FK__Product__SuppNum__6383C8BA">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Salary__StaffNum__403A8C7D" Association="Self.FK__Salary__StaffNum__403A8C7D">
+          <AssociationSet Name="FK__Salary__StaffNum__66603565" Association="Self.FK__Salary__StaffNum__66603565">
             <End Role="Staff" EntitySet="Staff" />
             <End Role="Salary" EntitySet="Salary" />
           </AssociationSet>
@@ -303,8 +304,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="YCSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -387,6 +387,7 @@
           <Property Name="CustNum" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="OrderTable" ToRole="Customer" />
           <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="OrderTable" ToRole="ProdOrder" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="ProdOrder">
           <Key>
@@ -661,6 +662,7 @@
           <EntitySetMapping Name="OrderTables">
             <EntityTypeMapping TypeName="YCSDBModel.OrderTable">
               <MappingFragment StoreEntitySet="OrderTable">
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="CustNum" ColumnName="CustNum" />
               </MappingFragment>

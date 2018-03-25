@@ -24,6 +24,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if(ViewBag.displayMenu != null && ViewBag.displayMenu != "Customer")
+                    {
+                        <li>@Html.ActionLink("Suppliers", "Index", "Supplier")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

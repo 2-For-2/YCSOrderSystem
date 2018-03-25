@@ -22,6 +22,7 @@ namespace YCSOrderSystem.Models
     
         public int OrderNum { get; set; }
         public int CustNum { get; set; }
+        public System.DateTime DueDate { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
