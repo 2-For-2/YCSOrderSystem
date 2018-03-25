@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,6 +26,7 @@
                     @if(ViewBag.displayMenu != null && ViewBag.displayMenu != "Customer")
                     {
                         <li>@Html.ActionLink("Suppliers", "Index", "Supplier")</li>
+                        <li>@Html.ActionLink("Products", "Index", "Products")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using YCSOrderSystem.Models;
@@ -13,6 +14,7 @@ namespace YCSOrderSystem.Controllers
     public class SupplierController : Controller
     {
         YCSDBEntities db = new YCSDBEntities();
+        
         // GET: Supplier
         public ActionResult Index()
         {
@@ -21,6 +23,7 @@ namespace YCSOrderSystem.Controllers
                 String UserRole = SUserRole();
                 if(UserRole != "Customer")
                 {
+                    ViewBag.displayMenu = "yes";
                     var supps = db.Suppliers.ToList();
                     return View(supps);
                 }                
@@ -62,6 +65,7 @@ namespace YCSOrderSystem.Controllers
             {
                 if(SUserRole() != "Customer")
                 {
+                    ViewBag.displayMenu = "yes";
                     return View();
                 }
             }
@@ -72,6 +76,7 @@ namespace YCSOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SuppName, Address, Contact, Email")]Supplier supplier)
         {
+            ViewBag.displayMenu = "yes";
             try
             {
                 if(ModelState.IsValid)
@@ -87,5 +92,67 @@ namespace YCSOrderSystem.Controllers
             }
             return View(supplier);
         }
+
+        public ActionResult Details(int? id)
+        {
+            ViewBag.displayMenu = "yes";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Supplier supp = db.Suppliers.Find(id);
+            if(supp == null)
+
+            {
+                return HttpNotFound();
+            }
+            return View(supp);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? id, bool? saveChangesError=false)
+        {
+            ViewBag.displayMenu = "yes";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if(saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete Failed, Try Again";
+            }
+            Supplier supp = db.Suppliers.Find(id);
+            if(supp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(supp);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            ViewBag.displayMenu = "yes";
+            try
+            {
+                Supplier supp = db.Suppliers.Find(id);
+                db.Suppliers.Remove(supp);
+                db.SaveChanges();
+            }
+            catch(DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
+
     }
 }

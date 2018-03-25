@@ -1,0 +1,64 @@
+﻿@model YCSOrderSystem.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtyOnHand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtyOnHand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Supplier.SuppName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Supplier.SuppName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
