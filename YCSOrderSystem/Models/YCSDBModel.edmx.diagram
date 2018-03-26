@@ -25,6 +25,8 @@
         <AssociationConnector Association="YCSDBModel.FK__Product__SuppNum__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="YCSDBModel.FK__Salary__StaffNum__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="YCSDBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="YCSDBModel.FK__Customer__AspId__160F4887" />
+        <AssociationConnector Association="YCSDBModel.FK__Staff__AspId__1AD3FDA4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

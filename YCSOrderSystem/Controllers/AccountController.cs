@@ -169,7 +169,17 @@ namespace YCSOrderSystem.Controllers
 
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
 
-                    return RedirectToAction("Index","Users");
+                    if(model.UserRoles == "Manager" || model.UserRoles == "Employee")
+                    {
+                        string UID = user.Id;
+                        return RedirectToAction("AddNewStaff", "Users", UID);
+                    }
+                    else if(model.UserRoles == "Customer")
+                    {
+                        return RedirectToAction("AddNewCustomer", "Users");
+                    }
+                    else 
+                        return RedirectToAction("Index","Users");
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
 

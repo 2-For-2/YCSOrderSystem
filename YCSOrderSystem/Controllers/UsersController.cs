@@ -74,5 +74,19 @@ namespace YCSOrderSystem.Controllers
             }
             return "Customer";
         }
+
+        [HttpGet]
+        public ActionResult AddNewStaff(string UserId)
+        {
+            string[] positions = { "Salesman", "Manager", "Technical Staff","Delivery Driver","Other"};
+            ViewBag.UserId = UserId;
+            ViewBag.Positions = new SelectList(positions);
+            return View();
+        }
+
+        public ActionResult AddNewCustomer()
+        {
+            return View();
+        }
     }
 }
