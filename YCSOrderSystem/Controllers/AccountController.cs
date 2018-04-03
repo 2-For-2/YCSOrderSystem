@@ -172,7 +172,7 @@ namespace YCSOrderSystem.Controllers
                     if(model.UserRoles == "Manager" || model.UserRoles == "Employee")
                     {
                         string UID = user.Id;
-                        return RedirectToAction("AddNewStaff", "Users", UID);
+                        return RedirectToAction("AddNewStaff", "Users", new { UserId = UID });
                     }
                     else if(model.UserRoles == "Customer")
                     {

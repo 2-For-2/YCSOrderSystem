@@ -28,8 +28,8 @@ namespace YCSOrderSystem.Models
         public string Email { get; set; }
         public string AspId { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderTable> OrderTables { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
