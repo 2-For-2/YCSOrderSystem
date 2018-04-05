@@ -169,7 +169,6 @@ namespace YCSOrderSystem.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-<<<<<<< HEAD
                     if(model.UserRoles == "Customer")
                     {
                         Customer cust = new Customer();
@@ -184,20 +183,6 @@ namespace YCSOrderSystem.Controllers
                     {
                         return RedirectToAction("AddStaff");
                     }
-=======
-
-                    if(model.UserRoles == "Manager" || model.UserRoles == "Employee")
-                    {
-                        string UID = user.Id;
-                        return RedirectToAction("AddNewStaff", "Users", new { UserId = UID });
-                    }
-                    else if(model.UserRoles == "Customer")
-                    {
-                        return RedirectToAction("AddNewCustomer", "Users");
-                    }
-                    else 
-                        return RedirectToAction("Index","Users");
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
 

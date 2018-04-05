@@ -52,7 +52,7 @@ namespace YCSOrderSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
+        public ActionResult Create([Bind(Include = "ProdNum,ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
         {
             ViewBag.displayMenu = "yes";
             if (ModelState.IsValid)
@@ -88,7 +88,7 @@ namespace YCSOrderSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
+        public ActionResult Edit([Bind(Include = "ProdNum,ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
         {
             ViewBag.displayMenu = "yes";
             if (ModelState.IsValid)

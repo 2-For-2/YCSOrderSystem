@@ -4,11 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-<<<<<<< HEAD
     <Schema Namespace="YCSDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-=======
-      <Schema Namespace="YCSDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -74,17 +70,14 @@
           <Key>
             <PropertyRef Name="CustNum" />
           </Key>
-          <Property Name="CustNum" Type="int" Nullable="false" />
+          <Property Name="CustNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="BankDeatils" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AspId" Type="nvarchar" MaxLength="128" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="UserName" Type="nvarchar" MaxLength="256" />
-=======
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         </EntityType>
         <EntityType Name="OrderTables">
           <Key>
@@ -136,10 +129,7 @@
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AspId" Type="nvarchar" MaxLength="128" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="UserName" Type="nvarchar" MaxLength="256" />
-=======
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -151,21 +141,6 @@
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-<<<<<<< HEAD
-=======
-        <Association Name="FK__Customer__AspId__160F4887">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="AspId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         <Association Name="FK__OrderTabl__CustN__4316F928">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="OrderTables" Type="Self.OrderTables" Multiplicity="*" />
@@ -226,31 +201,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-<<<<<<< HEAD
-        <Association Name="FK_AspNetUserRoles_AspNetRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-=======
-        <Association Name="FK__Staff__AspId__1AD3FDA4">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-<<<<<<< HEAD
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="AspNetRoles_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-=======
-            <Dependent Role="Staffs">
-              <PropertyRef Name="AspId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AspNetUserRoles_AspNetRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -263,7 +213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         <Association Name="FK_AspNetUserRoles_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -318,7 +267,6 @@
           <EntitySet Name="Salaries" EntityType="Self.Salaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
-<<<<<<< HEAD
           <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="OrderTables" EntitySet="OrderTables" />
@@ -339,45 +287,6 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Salaries" EntitySet="Salaries" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-=======
-          <AssociationSet Name="FK__Customer__AspId__160F4887" Association="Self.FK__Customer__AspId__160F4887">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Customers" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="OrderTables" EntitySet="OrderTables" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
-            <End Role="OrderTables" EntitySet="OrderTables" />
-            <End Role="ProdOrders" EntitySet="ProdOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProdOrders" EntitySet="ProdOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
-            <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Products" EntitySet="Products" />
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
-          </AssociationSet>
-          <AssociationSet Name="FK__Salary__StaffNum__403A8C7D" Association="Self.FK__Salary__StaffNum__403A8C7D">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Salaries" EntitySet="Salaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Staff__AspId__1AD3FDA4" Association="Self.FK__Staff__AspId__1AD3FDA4">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Staffs" EntitySet="Staffs" />
-          </AssociationSet>
-<<<<<<< HEAD
-=======
           <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -394,10 +303,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="YCSDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -448,8 +355,6 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__AspId__160F4887" FromRole="AspNetUsers" ToRole="Customers" />
-          <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__AspId__1AD3FDA4" FromRole="AspNetUsers" ToRole="Staffs" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
@@ -473,11 +378,7 @@
           <Property Name="BankDeatils" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AspId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-=======
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Customer__AspId__160F4887" FromRole="Customers" ToRole="AspNetUsers" />
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
           <NavigationProperty Name="OrderTables" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="Customers" ToRole="OrderTables" />
         </EntityType>
         <EntityType Name="OrderTable">
@@ -537,11 +438,7 @@
           <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AspId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-=======
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Staff__AspId__1AD3FDA4" FromRole="Staffs" ToRole="AspNetUsers" />
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
           <NavigationProperty Name="Salaries" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Staffs" ToRole="Salaries" />
         </EntityType>
         <EntityType Name="Supplier">
@@ -580,30 +477,6 @@
             </Principal>
             <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Customer__AspId__160F4887">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="AspId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Staff__AspId__1AD3FDA4">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Staffs">
-              <PropertyRef Name="AspId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -691,14 +564,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Customer__AspId__160F4887" Association="Self.FK__Customer__AspId__160F4887">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Customers" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Staff__AspId__1AD3FDA4" Association="Self.FK__Staff__AspId__1AD3FDA4">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Staffs" EntitySet="Staffs" />
           </AssociationSet>
           <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
             <End Role="Customers" EntitySet="Customers" />
@@ -796,10 +661,7 @@
                 <ScalarProperty Name="BankDeatils" ColumnName="BankDeatils" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="AspId" ColumnName="AspId" />
-<<<<<<< HEAD
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-=======
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -855,10 +717,7 @@
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="AspId" ColumnName="AspId" />
-<<<<<<< HEAD
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-=======
->>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
