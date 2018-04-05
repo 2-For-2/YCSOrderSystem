@@ -19,6 +19,7 @@ namespace YCSOrderSystem.Controllers
         private ApplicationUserManager _userManager;
 
         ApplicationDbContext context;
+        YCSDatabaseEntities db = new YCSDatabaseEntities();
 
         public AccountController()
         {
@@ -168,8 +169,20 @@ namespace YCSOrderSystem.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-
-                    return RedirectToAction("Index","Users");
+                    if(model.UserRoles == "Customer")
+                    {
+                        Customer cust = new Customer();
+                        cust.Email = model.Email;
+                        
+                        cust.AspId = user.Id;
+                        cust.UserName = user.UserName;
+                        TempData["customer"] = cust;
+                        return RedirectToAction("Create", "Customer");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddStaff");
+                    }
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
 
@@ -180,6 +193,7 @@ namespace YCSOrderSystem.Controllers
             return View(model);
         }
 
+        
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

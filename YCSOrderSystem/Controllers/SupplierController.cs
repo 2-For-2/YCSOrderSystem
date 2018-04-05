@@ -13,7 +13,7 @@ namespace YCSOrderSystem.Controllers
 {
     public class SupplierController : Controller
     {
-        YCSDBEntities db = new YCSDBEntities();
+        YCSDatabaseEntities db = new YCSDatabaseEntities();
         
         // GET: Supplier
         public ActionResult Index()

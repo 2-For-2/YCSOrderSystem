@@ -13,7 +13,7 @@ namespace YCSOrderSystem.Controllers
     [Authorize(Roles ="Admin,Manager,Employee")]
     public class ProductsController : Controller
     {
-        private YCSDBEntities db = new YCSDBEntities();
+        private YCSDatabaseEntities db = new YCSDatabaseEntities();
 
         // GET: Products
         public ActionResult Index()

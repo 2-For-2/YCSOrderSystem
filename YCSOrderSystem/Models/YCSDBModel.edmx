@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="YCSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="YCSDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,11 +33,11 @@
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="AspNetRoles_Id" />
+            <PropertyRef Name="AspNetUsers_Id" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetRoles_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetUsers_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -66,7 +56,17 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="Customer">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="CustNum" />
           </Key>
@@ -76,16 +76,18 @@
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="BankDeatils" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AspId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <EntityType Name="OrderTable">
+        <EntityType Name="OrderTables">
           <Key>
             <PropertyRef Name="OrderNum" />
           </Key>
-          <Property Name="OrderNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNum" Type="int" Nullable="false" />
           <Property Name="CustNum" Type="int" Nullable="false" />
-          <Property Name="DueDate" Type="date" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProdOrder">
+        <EntityType Name="ProdOrders">
           <Key>
             <PropertyRef Name="OrderNum" />
             <PropertyRef Name="ProdNum" />
@@ -94,106 +96,132 @@
           <Property Name="ProdNum" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Product">
+        <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProdNum" />
           </Key>
-          <Property Name="ProdNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProdNum" Type="int" Nullable="false" />
           <Property Name="ProdName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProdDesc" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="QtyOnHand" Type="int" Nullable="false" />
           <Property Name="SuppNum" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Salary">
+        <EntityType Name="Salaries">
           <Key>
             <PropertyRef Name="SalaryNum" />
           </Key>
-          <Property Name="SalaryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalaryNum" Type="int" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Benefits" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Deductions" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Bonuses" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StaffNum" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Staff">
+        <EntityType Name="Staffs">
           <Key>
             <PropertyRef Name="StaffNum" />
           </Key>
-          <Property Name="StaffNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffNum" Type="int" Nullable="false" />
           <Property Name="StaffName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AspId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <EntityType Name="Supplier">
+        <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="SuppNum" />
           </Key>
-          <Property Name="SuppNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuppNum" Type="int" Nullable="false" />
           <Property Name="SuppName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__OrderTabl__CustN__693CA210">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+        <Association Name="FK__OrderTabl__CustN__4316F928">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="OrderTables" Type="Self.OrderTables" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Customers">
               <PropertyRef Name="CustNum" />
             </Principal>
-            <Dependent Role="OrderTable">
+            <Dependent Role="OrderTables">
               <PropertyRef Name="CustNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__Order__6C190EBB">
-          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
-          <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
+        <Association Name="FK__ProdOrder__Order__46E78A0C">
+          <End Role="OrderTables" Type="Self.OrderTables" Multiplicity="1" />
+          <End Role="ProdOrders" Type="Self.ProdOrders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OrderTable">
+            <Principal Role="OrderTables">
               <PropertyRef Name="OrderNum" />
             </Principal>
-            <Dependent Role="ProdOrder">
+            <Dependent Role="ProdOrders">
               <PropertyRef Name="OrderNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__ProdN__6D0D32F4">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
+        <Association Name="FK__ProdOrder__ProdN__47DBAE45">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProdOrders" Type="Self.ProdOrders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="ProdNum" />
             </Principal>
-            <Dependent Role="ProdOrder">
+            <Dependent Role="ProdOrders">
               <PropertyRef Name="ProdNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__SuppNum__6383C8BA">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+        <Association Name="FK__Product__SuppNum__3D5E1FD2">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Supplier">
+            <Principal Role="Suppliers">
               <PropertyRef Name="SuppNum" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="SuppNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Salary__StaffNum__66603565">
-          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
-          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+        <Association Name="FK__Salary__StaffNum__403A8C7D">
+          <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
+          <End Role="Salaries" Type="Self.Salaries" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Staff">
+            <Principal Role="Staffs">
               <PropertyRef Name="StaffNum" />
             </Principal>
-            <Dependent Role="Salary">
+            <Dependent Role="Salaries">
               <PropertyRef Name="StaffNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="AspNetRoles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="AspNetUsers_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -225,67 +253,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="YCSDBModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="YCSDatabaseModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderTable" EntityType="Self.OrderTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProdOrder" EntityType="Self.ProdOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__OrderTabl__CustN__693CA210" Association="Self.FK__OrderTabl__CustN__693CA210">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="OrderTable" EntitySet="OrderTable" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTables" EntityType="Self.OrderTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProdOrders" EntityType="Self.ProdOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salaries" EntityType="Self.Salaries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="OrderTables" EntitySet="OrderTables" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__Order__6C190EBB" Association="Self.FK__ProdOrder__Order__6C190EBB">
-            <End Role="OrderTable" EntitySet="OrderTable" />
-            <End Role="ProdOrder" EntitySet="ProdOrder" />
+          <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
+            <End Role="OrderTables" EntitySet="OrderTables" />
+            <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__ProdN__6D0D32F4" Association="Self.FK__ProdOrder__ProdN__6D0D32F4">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProdOrder" EntitySet="ProdOrder" />
+          <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__SuppNum__6383C8BA" Association="Self.FK__Product__SuppNum__6383C8BA">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Product" EntitySet="Product" />
+          <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Salary__StaffNum__66603565" Association="Self.FK__Salary__StaffNum__66603565">
-            <End Role="Staff" EntitySet="Staff" />
-            <End Role="Salary" EntitySet="Salary" />
+          <AssociationSet Name="FK__Salary__StaffNum__403A8C7D" Association="Self.FK__Salary__StaffNum__403A8C7D">
+            <End Role="Staffs" EntitySet="Staffs" />
+            <End Role="Salaries" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -295,29 +303,11 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="YCSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="YCSDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -367,6 +357,16 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustNum" />
@@ -377,7 +377,9 @@
           <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BankDeatils" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderTables" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="Customer" ToRole="OrderTable" />
+          <Property Name="AspId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderTables" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="Customers" ToRole="OrderTables" />
         </EntityType>
         <EntityType Name="OrderTable">
           <Key>
@@ -385,9 +387,9 @@
           </Key>
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
           <Property Name="CustNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="OrderTable" ToRole="Customer" />
-          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="OrderTable" ToRole="ProdOrder" />
-          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="OrderTables" ToRole="Customers" />
+          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="OrderTables" ToRole="ProdOrders" />
         </EntityType>
         <EntityType Name="ProdOrder">
           <Key>
@@ -397,8 +399,8 @@
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
           <Property Name="ProdNum" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OrderTable" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="ProdOrder" ToRole="OrderTable" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="ProdOrder" ToRole="Product" />
+          <NavigationProperty Name="OrderTable" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="ProdOrders" ToRole="OrderTables" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="ProdOrders" ToRole="Products" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -410,8 +412,8 @@
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="QtyOnHand" Type="Int32" Nullable="false" />
           <Property Name="SuppNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="Product" ToRole="ProdOrder" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Product" ToRole="Supplier" />
+          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="Products" ToRole="ProdOrders" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Products" ToRole="Suppliers" />
         </EntityType>
         <EntityType Name="Salary">
           <Key>
@@ -423,7 +425,7 @@
           <Property Name="Deductions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Bonuses" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StaffNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Salary" ToRole="Staff" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Salaries" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -435,7 +437,9 @@
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Salaries" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Staff" ToRole="Salary" />
+          <Property Name="AspId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Salaries" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Staffs" ToRole="Salaries" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -446,7 +450,7 @@
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Supplier" ToRole="Product" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Suppliers" ToRole="Products" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -477,61 +481,61 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__OrderTabl__CustN__4316F928">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OrderTables" Type="Self.OrderTable" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Customers">
               <PropertyRef Name="CustNum" />
             </Principal>
-            <Dependent Role="OrderTable">
+            <Dependent Role="OrderTables">
               <PropertyRef Name="CustNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__ProdOrder__Order__46E78A0C">
-          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
-          <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
+          <End Role="OrderTables" Type="Self.OrderTable" Multiplicity="1" />
+          <End Role="ProdOrders" Type="Self.ProdOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OrderTable">
+            <Principal Role="OrderTables">
               <PropertyRef Name="OrderNum" />
             </Principal>
-            <Dependent Role="ProdOrder">
+            <Dependent Role="ProdOrders">
               <PropertyRef Name="OrderNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__ProdOrder__ProdN__47DBAE45">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProdOrder" Type="Self.ProdOrder" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProdOrders" Type="Self.ProdOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="ProdNum" />
             </Principal>
-            <Dependent Role="ProdOrder">
+            <Dependent Role="ProdOrders">
               <PropertyRef Name="ProdNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Product__SuppNum__3D5E1FD2">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Supplier">
+            <Principal Role="Suppliers">
               <PropertyRef Name="SuppNum" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="SuppNum" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Salary__StaffNum__403A8C7D">
-          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
-          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+          <End Role="Staffs" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Salaries" Type="Self.Salary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Staff">
+            <Principal Role="Staffs">
               <PropertyRef Name="StaffNum" />
             </Principal>
-            <Dependent Role="Salary">
+            <Dependent Role="Salaries">
               <PropertyRef Name="StaffNum" />
             </Dependent>
           </ReferentialConstraint>
@@ -540,12 +544,12 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="YCSDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+        <EntityContainer Name="YCSDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="OrderTables" EntityType="Self.OrderTable" />
           <EntitySet Name="ProdOrders" EntityType="Self.ProdOrder" />
@@ -562,24 +566,24 @@
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
           <AssociationSet Name="FK__OrderTabl__CustN__4316F928" Association="Self.FK__OrderTabl__CustN__4316F928">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="OrderTable" EntitySet="OrderTables" />
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="OrderTables" EntitySet="OrderTables" />
           </AssociationSet>
           <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
-            <End Role="OrderTable" EntitySet="OrderTables" />
-            <End Role="ProdOrder" EntitySet="ProdOrders" />
+            <End Role="OrderTables" EntitySet="OrderTables" />
+            <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
           <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProdOrder" EntitySet="ProdOrders" />
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
           <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Product" EntitySet="Products" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK__Salary__StaffNum__403A8C7D" Association="Self.FK__Salary__StaffNum__403A8C7D">
-            <End Role="Staff" EntitySet="Staffs" />
-            <End Role="Salary" EntitySet="Salaries" />
+            <End Role="Staffs" EntitySet="Staffs" />
+            <End Role="Salaries" EntitySet="Salaries" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -591,19 +595,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="YCSDBModelStoreContainer" CdmEntityContainer="YCSDBEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="YCSDBModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="YCSDatabaseModelStoreContainer" CdmEntityContainer="YCSDatabaseEntities">
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="YCSDBModel.AspNetRole">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -611,7 +605,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="YCSDBModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -621,7 +615,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="YCSDBModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -630,7 +624,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="YCSDBModel.AspNetUser">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -647,30 +641,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="C__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="YCSDBModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="CustNum" ColumnName="CustNum" />
                 <ScalarProperty Name="CustName" ColumnName="CustName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="BankDeatils" ColumnName="BankDeatils" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AspId" ColumnName="AspId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderTables">
-            <EntityTypeMapping TypeName="YCSDBModel.OrderTable">
-              <MappingFragment StoreEntitySet="OrderTable">
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+            <EntityTypeMapping TypeName="YCSDatabaseModel.OrderTable">
+              <MappingFragment StoreEntitySet="OrderTables">
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="CustNum" ColumnName="CustNum" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProdOrders">
-            <EntityTypeMapping TypeName="YCSDBModel.ProdOrder">
-              <MappingFragment StoreEntitySet="ProdOrder">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.ProdOrder">
+              <MappingFragment StoreEntitySet="ProdOrders">
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="ProdNum" ColumnName="ProdNum" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -678,8 +684,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="YCSDBModel.Product">
-              <MappingFragment StoreEntitySet="Product">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.Product">
+              <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ProdNum" ColumnName="ProdNum" />
                 <ScalarProperty Name="ProdName" ColumnName="ProdName" />
                 <ScalarProperty Name="ProdDesc" ColumnName="ProdDesc" />
@@ -690,8 +696,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Salaries">
-            <EntityTypeMapping TypeName="YCSDBModel.Salary">
-              <MappingFragment StoreEntitySet="Salary">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.Salary">
+              <MappingFragment StoreEntitySet="Salaries">
                 <ScalarProperty Name="SalaryNum" ColumnName="SalaryNum" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Benefits" ColumnName="Benefits" />
@@ -702,20 +708,22 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Staffs">
-            <EntityTypeMapping TypeName="YCSDBModel.Staff">
-              <MappingFragment StoreEntitySet="Staff">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.Staff">
+              <MappingFragment StoreEntitySet="Staffs">
                 <ScalarProperty Name="StaffNum" ColumnName="StaffNum" />
                 <ScalarProperty Name="StaffName" ColumnName="StaffName" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AspId" ColumnName="AspId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="YCSDBModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
                 <ScalarProperty Name="SuppNum" ColumnName="SuppNum" />
                 <ScalarProperty Name="SuppName" ColumnName="SuppName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -724,12 +732,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="YCSDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="YCSDatabaseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
+              <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
             </EndProperty>
             <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
+              <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

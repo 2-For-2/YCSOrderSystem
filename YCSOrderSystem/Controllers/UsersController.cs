@@ -26,24 +26,31 @@ namespace YCSOrderSystem.Controllers
                 {
                     case "Admin":
                         ViewBag.displayMenu = "Admin";
-                        break;
+                        return View("AdminIndex");
                     case "Manager":
-                        ViewBag.displayMenu = "Staff";
-                        break;
                     case "Employee":
                         ViewBag.displayMenu = "Staff";
-                        break;
+                        return View("StaffIndex");
                     default:
-                        ViewBag.displayMenu = "Customer";
-                        break;
-                }
-                return View();                    
+                        return RedirectToAction("Index","Home");
+                }                 
             }
             else
             {
                 ViewBag.Name = "Anonymous";
+                RedirectToAction("Index", "Home");
             }
 
+            return View();
+        }
+
+        public ActionResult AdminIndex()
+        {
+            return View();
+        }
+
+        public ActionResult StaffIndex()
+        {
             return View();
         }
 

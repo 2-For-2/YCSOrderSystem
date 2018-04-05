@@ -13,10 +13,10 @@ namespace YCSOrderSystem.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class YCSDBEntities : DbContext
+    public partial class YCSDatabaseEntities : DbContext
     {
-        public YCSDBEntities()
-            : base("name=YCSDBEntities")
+        public YCSDatabaseEntities()
+            : base("name=YCSDatabaseEntities")
         {
         }
     
@@ -25,11 +25,11 @@ namespace YCSOrderSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<OrderTable> OrderTables { get; set; }
         public virtual DbSet<ProdOrder> ProdOrders { get; set; }
