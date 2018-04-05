@@ -27,8 +27,12 @@ namespace YCSOrderSystem.Models
         public string Contact { get; set; }
         public string Email { get; set; }
         public string AspId { get; set; }
+<<<<<<< HEAD
         public string UserName { get; set; }
+=======
+>>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }
     }

@@ -354,12 +354,16 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Users\AdminIndex.cshtml" />
     <Content Include="Views\Users\StaffIndex.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Account\AddCustomer.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+=======
+    <Content Include="Views\Users\AddNewStaff.cshtml" />
+>>>>>>> 40812cf4cb6c10fd9e96bfd8dac742037e14ea2e
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

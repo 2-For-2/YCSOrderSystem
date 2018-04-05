@@ -11,6 +11,8 @@ namespace YCSOrderSystem.Controllers
 {
     public class UsersController : Controller
     {
+
+        YCSDatabaseEntities db = new YCSDatabaseEntities();
         [Authorize]
         // GET: Users
         public ActionResult Index()
@@ -80,6 +82,37 @@ namespace YCSOrderSystem.Controllers
                 }
             }
             return "Customer";
+        }
+
+        [HttpGet]
+        public ActionResult AddNewStaff(string UserId)
+        {
+            string[] positions = { "Salesman", "Manager", "Technical Staff","Delivery Driver","Other"};
+            ViewBag.UserId = UserId;
+            ViewBag.Positions = new SelectList(positions);
+            Staff newStaff = new Models.Staff();
+            newStaff.AspId = UserId;
+            return View(newStaff);
+        }
+
+        [HttpPost]
+        public ActionResult AddNewStaff([Bind(Include = "StaffNum,StaffName,Position,Address,Contact,Email,AspId")] Staff staff)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Staffs.Add(staff);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("AddNewStaff", staff.AspId);
+            }
+        }
+
+        public ActionResult AddNewCustomer()
+        {
+            return RedirectToAction("Index","Home");
         }
     }
 }
