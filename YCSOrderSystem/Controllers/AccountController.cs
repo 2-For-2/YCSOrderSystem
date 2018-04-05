@@ -172,8 +172,7 @@ namespace YCSOrderSystem.Controllers
                     if(model.UserRoles == "Customer")
                     {
                         Customer cust = new Customer();
-                        cust.Email = model.Email;
-                        
+                        cust.Email = model.Email;                        
                         cust.AspId = user.Id;
                         cust.UserName = user.UserName;
                         TempData["customer"] = cust;
@@ -181,7 +180,12 @@ namespace YCSOrderSystem.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("AddStaff");
+                        Staff newStaff = new Staff();
+                        newStaff.Email = model.Email;
+                        newStaff.AspId = user.Id;
+                        newStaff.UserName = user.UserName;
+                        TempData["staff"] = newStaff;
+                        return RedirectToAction("Create", "Staff");
                     }
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
