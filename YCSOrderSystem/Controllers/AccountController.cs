@@ -439,6 +439,18 @@ namespace YCSOrderSystem.Controllers
                     _userManager = null;
                 }
 
+                if(context != null)
+                {
+                    context.Dispose();
+                    context = null;
+                }
+
+                if(db != null)
+                {
+                    db.Dispose();
+                    db = null;
+                }
+
                 if (_signInManager != null)
                 {
                     _signInManager.Dispose();

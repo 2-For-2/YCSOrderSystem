@@ -111,7 +111,7 @@
           <Key>
             <PropertyRef Name="SalaryNum" />
           </Key>
-          <Property Name="SalaryNum" Type="int" Nullable="false" />
+          <Property Name="SalaryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Benefits" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Deductions" Type="varchar" MaxLength="50" Nullable="false" />
@@ -122,7 +122,7 @@
           <Key>
             <PropertyRef Name="StaffNum" />
           </Key>
-          <Property Name="StaffNum" Type="int" Nullable="false" />
+          <Property Name="StaffNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StaffName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
@@ -189,7 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Salary__StaffNum__403A8C7D">
+        <Association Name="FK__Salaries__StaffN__4E88ABD4">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
           <End Role="Salaries" Type="Self.Salaries" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +283,7 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Salary__StaffNum__403A8C7D" Association="Self.FK__Salary__StaffNum__403A8C7D">
+          <AssociationSet Name="FK__Salaries__StaffN__4E88ABD4" Association="Self.FK__Salaries__StaffN__4E88ABD4">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Salaries" EntitySet="Salaries" />
           </AssociationSet>
