@@ -113,9 +113,9 @@
           </Key>
           <Property Name="SalaryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Benefits" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Deductions" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Bonuses" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Benefits" Type="nvarchar" MaxLength="256" />
+          <Property Name="Deductions" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="StaffNum" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Staffs">
@@ -189,7 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Salaries__StaffN__4E88ABD4">
+        <Association Name="FK__Salaries__StaffN__5165187F">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
           <End Role="Salaries" Type="Self.Salaries" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +283,7 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Salaries__StaffN__4E88ABD4" Association="Self.FK__Salaries__StaffN__4E88ABD4">
+          <AssociationSet Name="FK__Salaries__StaffN__5165187F" Association="Self.FK__Salaries__StaffN__5165187F">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Salaries" EntitySet="Salaries" />
           </AssociationSet>
@@ -421,11 +421,11 @@
           </Key>
           <Property Name="SalaryNum" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Benefits" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Deductions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Bonuses" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Benefits" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Deductions" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="StaffNum" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Staff" Relationship="Self.FK__Salary__StaffNum__403A8C7D" FromRole="Salaries" ToRole="Staffs" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -698,11 +698,11 @@
           <EntitySetMapping Name="Salaries">
             <EntityTypeMapping TypeName="YCSDatabaseModel.Salary">
               <MappingFragment StoreEntitySet="Salaries">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="SalaryNum" ColumnName="SalaryNum" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Benefits" ColumnName="Benefits" />
                 <ScalarProperty Name="Deductions" ColumnName="Deductions" />
-                <ScalarProperty Name="Bonuses" ColumnName="Bonuses" />
                 <ScalarProperty Name="StaffNum" ColumnName="StaffNum" />
               </MappingFragment>
             </EntityTypeMapping>

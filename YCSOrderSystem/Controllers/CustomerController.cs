@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,10 @@ namespace YCSOrderSystem.Controllers
         // GET: Customer
         public ActionResult Index()
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             var custs = db.Customers.ToList();
             return View(custs);
         }
@@ -20,12 +26,20 @@ namespace YCSOrderSystem.Controllers
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             return View();
         }
 
         // GET: Customer/Create
         public ActionResult Create()
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             Customer customer = (Customer)TempData["customer"];
             return View(customer);
         }
@@ -34,6 +48,10 @@ namespace YCSOrderSystem.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             try
             {
                 // TODO: Add insert logic here
@@ -48,7 +66,7 @@ namespace YCSOrderSystem.Controllers
                 db.Customers.Add(cust);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
         }
             catch(Exception e)
             {
@@ -83,16 +101,28 @@ namespace YCSOrderSystem.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
+            Customer cust = db.Customers.Find(id);
+            return View(cust);
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             try
             {
                 // TODO: Add delete logic here
+                Customer cust = db.Customers.Find(id);
+                db.Customers.Remove(cust);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -100,6 +130,34 @@ namespace YCSOrderSystem.Controllers
             {
                 return View();
             }
+        }
+
+        public String SUserRole()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return "Admin";
+                }
+                else if (s[0].ToString() == "Manager")
+                {
+                    return "Manager";
+                }
+                else if (s[0].ToString() == "Employee")
+                {
+                    return "Employee";
+                }
+                else
+                {
+                    return "Customer";
+                }
+            }
+            return "Customer";
         }
     }
 }

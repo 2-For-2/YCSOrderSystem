@@ -18,8 +18,8 @@ namespace YCSOrderSystem.Models
         public decimal Amount { get; set; }
         public string Benefits { get; set; }
         public string Deductions { get; set; }
-        public string Bonuses { get; set; }
         public int StaffNum { get; set; }
+        public string Description { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

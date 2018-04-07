@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using YCSOrderSystem.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace YCSOrderSystem.Controllers
 {
@@ -61,6 +62,10 @@ namespace YCSOrderSystem.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -72,6 +77,10 @@ namespace YCSOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             if (!ModelState.IsValid)
             {
                 return View();
@@ -143,6 +152,10 @@ namespace YCSOrderSystem.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             return View();
         }
@@ -154,6 +167,10 @@ namespace YCSOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
@@ -197,7 +214,35 @@ namespace YCSOrderSystem.Controllers
             return View(model);
         }
 
-        
+        public String SUserRole()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return "Admin";
+                }
+                else if (s[0].ToString() == "Manager")
+                {
+                    return "Manager";
+                }
+                else if (s[0].ToString() == "Employee")
+                {
+                    return "Employee";
+                }
+                else
+                {
+                    return "Customer";
+                }
+            }
+            return "Customer";
+        }
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

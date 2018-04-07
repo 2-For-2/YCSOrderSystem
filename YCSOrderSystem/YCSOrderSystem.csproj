@@ -201,11 +201,10 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SalariesController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -345,7 +344,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Supplier\Create.cshtml" />
     <Content Include="Views\Supplier\Details.cshtml" />
@@ -355,14 +353,18 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Users\AdminIndex.cshtml" />
-    <Content Include="Views\Users\StaffIndex.cshtml" />
-    <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Account\AddCustomer.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\Delete.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Salaries\Create.cshtml" />
+    <Content Include="Views\Salaries\Delete.cshtml" />
+    <Content Include="Views\Salaries\Details.cshtml" />
+    <Content Include="Views\Salaries\Edit.cshtml" />
+    <Content Include="Views\Salaries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

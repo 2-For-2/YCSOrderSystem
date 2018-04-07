@@ -76,7 +76,10 @@ namespace YCSOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SuppName, Address, Contact, Email")]Supplier supplier)
         {
-            ViewBag.displayMenu = "yes";
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             try
             {
                 if(ModelState.IsValid)
@@ -95,7 +98,10 @@ namespace YCSOrderSystem.Controllers
 
         public ActionResult Details(int? id)
         {
-            ViewBag.displayMenu = "yes";
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,7 +118,10 @@ namespace YCSOrderSystem.Controllers
         [HttpGet]
         public ActionResult Delete(int? id, bool? saveChangesError=false)
         {
-            ViewBag.displayMenu = "yes";
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -133,7 +142,10 @@ namespace YCSOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            ViewBag.displayMenu = "yes";
+            if (SUserRole() != "Customer" && SUserRole() != null)
+            {
+                ViewBag.displayMenu = "Yes";
+            }
             try
             {
                 Supplier supp = db.Suppliers.Find(id);

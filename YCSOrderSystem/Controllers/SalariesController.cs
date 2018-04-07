@@ -12,153 +12,146 @@ using YCSOrderSystem.Models;
 
 namespace YCSOrderSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Manager,Employee")]
-    public class ProductsController : Controller
+    public class SalariesController : Controller
     {
         private YCSDatabaseEntities db = new YCSDatabaseEntities();
 
-        // GET: Products
+        // GET: Salaries
         public ActionResult Index()
         {
+            
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            //ViewBag.displayMenu = "yes";
-            var products = db.Products.Include(p => p.Supplier);
-            return View(products.ToList());
+            var salaries = db.Salaries.Include(s => s.Staff);
+            return View(salaries.ToList());
         }
 
-        // GET: Products/Details/5
+        // GET: Salaries/Details/5
         public ActionResult Details(int? id)
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Salary salary = db.Salaries.Find(id);
+            if (salary == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(salary);
         }
 
-        // GET: Products/Create
+        // GET: Salaries/Create
         public ActionResult Create()
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
-            ViewBag.SuppNum = new SelectList(db.Suppliers, "SuppNum", "SuppName");
+            ViewBag.StaffNum = new SelectList(db.Staffs, "StaffNum", "StaffName");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Salaries/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProdNum,ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
+        public ActionResult Create([Bind(Include = "SalaryNum,Amount,Benefits,Deductions,StaffNum,Description")] Salary salary)
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
+                db.Salaries.Add(salary);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SuppNum = new SelectList(db.Suppliers, "SuppNum", "SuppName", product.SuppNum);
-            return View(product);
+            ViewBag.StaffNum = new SelectList(db.Staffs, "StaffNum", "StaffName", salary.StaffNum);
+            return View(salary);
         }
 
-        // GET: Products/Edit/5
+        // GET: Salaries/Edit/5
         public ActionResult Edit(int? id)
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Salary salary = db.Salaries.Find(id);
+            if (salary == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SuppNum = new SelectList(db.Suppliers, "SuppNum", "SuppName", product.SuppNum);
-            return View(product);
+            ViewBag.StaffNum = new SelectList(db.Staffs, "StaffNum", "StaffName", salary.StaffNum);
+            return View(salary);
         }
 
-        // POST: Products/Edit/5
+        // POST: Salaries/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProdNum,ProdName,ProdDesc,Price,QtyOnHand,SuppNum")] Product product)
+        public ActionResult Edit([Bind(Include = "SalaryNum,Amount,Benefits,Deductions,StaffNum,Description")] Salary salary)
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(salary).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SuppNum = new SelectList(db.Suppliers, "SuppNum", "SuppName", product.SuppNum);
-            return View(product);
+            ViewBag.StaffNum = new SelectList(db.Staffs, "StaffNum", "StaffName", salary.StaffNum);
+            return View(salary);
         }
 
-        // GET: Products/Delete/5
+        // GET: Salaries/Delete/5
         public ActionResult Delete(int? id)
         {
             if (SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Salary salary = db.Salaries.Find(id);
+            if (salary == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(salary);
         }
 
-        // POST: Products/Delete/5
+        // POST: Salaries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (SUserRole() != "Customer" && SUserRole() != null)
+            if(SUserRole() != "Customer" && SUserRole() != null)
             {
                 ViewBag.displayMenu = "Yes";
             }
-            ViewBag.displayMenu = "yes";
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+
+            Salary salary = db.Salaries.Find(id);
+            db.Salaries.Remove(salary);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
