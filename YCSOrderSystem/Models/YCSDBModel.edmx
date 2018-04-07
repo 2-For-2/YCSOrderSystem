@@ -94,15 +94,15 @@
           </Key>
           <Property Name="OrderNum" Type="int" Nullable="false" />
           <Property Name="ProdNum" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProdNum" />
           </Key>
-          <Property Name="ProdNum" Type="int" Nullable="false" />
-          <Property Name="ProdName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProdDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProdNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProdName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ProdDesc" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="QtyOnHand" Type="int" Nullable="false" />
           <Property Name="SuppNum" Type="int" Nullable="false" />
@@ -135,11 +135,11 @@
           <Key>
             <PropertyRef Name="SuppNum" />
           </Key>
-          <Property Name="SuppNum" Type="int" Nullable="false" />
-          <Property Name="SuppName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SuppNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuppName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <Association Name="FK__OrderTabl__CustN__4316F928">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
@@ -153,7 +153,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__Order__46E78A0C">
+        <Association Name="FK__ProdOrder__Order__60A75C0F">
           <End Role="OrderTables" Type="Self.OrderTables" Multiplicity="1" />
           <End Role="ProdOrders" Type="Self.ProdOrders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -165,7 +165,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__ProdN__47DBAE45">
+        <Association Name="FK__ProdOrder__ProdN__619B8048">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="ProdOrders" Type="Self.ProdOrders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -177,7 +177,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__SuppNum__3D5E1FD2">
+        <Association Name="FK__Products__SuppNu__571DF1D5">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,15 +271,15 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="OrderTables" EntitySet="OrderTables" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
+          <AssociationSet Name="FK__ProdOrder__Order__60A75C0F" Association="Self.FK__ProdOrder__Order__60A75C0F">
             <End Role="OrderTables" EntitySet="OrderTables" />
             <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
+          <AssociationSet Name="FK__ProdOrder__ProdN__619B8048" Association="Self.FK__ProdOrder__ProdN__619B8048">
             <End Role="Products" EntitySet="Products" />
             <End Role="ProdOrders" EntitySet="ProdOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
+          <AssociationSet Name="FK__Products__SuppNu__571DF1D5" Association="Self.FK__Products__SuppNu__571DF1D5">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
@@ -389,31 +389,20 @@
           <Property Name="CustNum" Type="Int32" Nullable="false" />
           <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__OrderTabl__CustN__4316F928" FromRole="OrderTables" ToRole="Customers" />
-          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="OrderTables" ToRole="ProdOrders" />
-        </EntityType>
-        <EntityType Name="ProdOrder">
-          <Key>
-            <PropertyRef Name="OrderNum" />
-            <PropertyRef Name="ProdNum" />
-          </Key>
-          <Property Name="OrderNum" Type="Int32" Nullable="false" />
-          <Property Name="ProdNum" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OrderTable" Relationship="Self.FK__ProdOrder__Order__46E78A0C" FromRole="ProdOrders" ToRole="OrderTables" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="ProdOrders" ToRole="Products" />
+          <NavigationProperty Name="ProdOrders1" Relationship="YCSDatabaseModel.FK__ProdOrder__Order__60A75C0F" FromRole="OrderTable" ToRole="ProdOrder1" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProdNum" />
           </Key>
           <Property Name="ProdNum" Type="Int32" Nullable="false" />
-          <Property Name="ProdName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProdDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProdName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProdDesc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="QtyOnHand" Type="Int32" Nullable="false" />
           <Property Name="SuppNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProdOrders" Relationship="Self.FK__ProdOrder__ProdN__47DBAE45" FromRole="Products" ToRole="ProdOrders" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Products" ToRole="Suppliers" />
+          <NavigationProperty Name="ProdOrders1" Relationship="YCSDatabaseModel.FK__ProdOrder__ProdN__619B8048" FromRole="Product" ToRole="ProdOrder1" />
         </EntityType>
         <EntityType Name="Salary">
           <Key>
@@ -446,10 +435,10 @@
             <PropertyRef Name="SuppNum" />
           </Key>
           <Property Name="SuppNum" Type="Int32" Nullable="false" />
-          <Property Name="SuppName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SuppName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__SuppNum__3D5E1FD2" FromRole="Suppliers" ToRole="Products" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -492,30 +481,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProdOrder__Order__46E78A0C">
-          <End Role="OrderTables" Type="Self.OrderTable" Multiplicity="1" />
-          <End Role="ProdOrders" Type="Self.ProdOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderTables">
-              <PropertyRef Name="OrderNum" />
-            </Principal>
-            <Dependent Role="ProdOrders">
-              <PropertyRef Name="OrderNum" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProdOrder__ProdN__47DBAE45">
-          <End Role="Products" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProdOrders" Type="Self.ProdOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProdNum" />
-            </Principal>
-            <Dependent Role="ProdOrders">
-              <PropertyRef Name="ProdNum" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Product__SuppNum__3D5E1FD2">
           <End Role="Suppliers" Type="Self.Supplier" Multiplicity="1" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -552,7 +517,6 @@
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="OrderTables" EntityType="Self.OrderTable" />
-          <EntitySet Name="ProdOrders" EntityType="Self.ProdOrder" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Salaries" EntityType="Self.Salary" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
@@ -569,14 +533,6 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="OrderTables" EntitySet="OrderTables" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__Order__46E78A0C" Association="Self.FK__ProdOrder__Order__46E78A0C">
-            <End Role="OrderTables" EntitySet="OrderTables" />
-            <End Role="ProdOrders" EntitySet="ProdOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProdOrder__ProdN__47DBAE45" Association="Self.FK__ProdOrder__ProdN__47DBAE45">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProdOrders" EntitySet="ProdOrders" />
-          </AssociationSet>
           <AssociationSet Name="FK__Product__SuppNum__3D5E1FD2" Association="Self.FK__Product__SuppNum__3D5E1FD2">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
@@ -589,7 +545,51 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="ProdOrders" EntityType="YCSDatabaseModel.ProdOrder" />
+          <AssociationSet Name="FK__ProdOrder__Order__60A75C0F" Association="YCSDatabaseModel.FK__ProdOrder__Order__60A75C0F">
+            <End Role="OrderTable" EntitySet="OrderTables" />
+            <End Role="ProdOrder1" EntitySet="ProdOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProdOrder__ProdN__619B8048" Association="YCSDatabaseModel.FK__ProdOrder__ProdN__619B8048">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProdOrder1" EntitySet="ProdOrders" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ProdOrder">
+          <Key>
+            <PropertyRef Name="OrderNum" />
+            <PropertyRef Name="ProdNum" />
+          </Key>
+          <Property Name="OrderNum" Type="Int32" Nullable="false" />
+          <Property Name="ProdNum" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="OrderTable" Relationship="YCSDatabaseModel.FK__ProdOrder__Order__60A75C0F" FromRole="ProdOrder1" ToRole="OrderTable" />
+          <NavigationProperty Name="Product" Relationship="YCSDatabaseModel.FK__ProdOrder__ProdN__619B8048" FromRole="ProdOrder1" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__ProdOrder__Order__60A75C0F">
+          <End Type="YCSDatabaseModel.OrderTable" Role="OrderTable" Multiplicity="1" />
+          <End Type="YCSDatabaseModel.ProdOrder" Role="ProdOrder1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTable">
+              <PropertyRef Name="OrderNum" />
+            </Principal>
+            <Dependent Role="ProdOrder1">
+              <PropertyRef Name="OrderNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProdOrder__ProdN__619B8048">
+          <End Type="YCSDatabaseModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="YCSDatabaseModel.ProdOrder" Role="ProdOrder1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProdNum" />
+            </Principal>
+            <Dependent Role="ProdOrder1">
+              <PropertyRef Name="ProdNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -674,15 +674,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProdOrders">
-            <EntityTypeMapping TypeName="YCSDatabaseModel.ProdOrder">
-              <MappingFragment StoreEntitySet="ProdOrders">
-                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
-                <ScalarProperty Name="ProdNum" ColumnName="ProdNum" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="YCSDatabaseModel.Product">
               <MappingFragment StoreEntitySet="Products">
@@ -740,6 +731,15 @@
               <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ProdOrders">
+            <EntityTypeMapping TypeName="YCSDatabaseModel.ProdOrder">
+              <MappingFragment StoreEntitySet="ProdOrders">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProdNum" ColumnName="ProdNum" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

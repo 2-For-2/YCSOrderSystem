@@ -32,10 +32,10 @@ namespace YCSOrderSystem.Models
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<OrderTable> OrderTables { get; set; }
-        public virtual DbSet<ProdOrder> ProdOrders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<ProdOrder> ProdOrders { get; set; }
     }
 }

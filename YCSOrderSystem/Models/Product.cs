@@ -17,7 +17,7 @@ namespace YCSOrderSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.ProdOrders = new HashSet<ProdOrder>();
+            this.ProdOrders1 = new HashSet<ProdOrder>();
         }
     
         public int ProdNum { get; set; }
@@ -27,8 +27,8 @@ namespace YCSOrderSystem.Models
         public int QtyOnHand { get; set; }
         public int SuppNum { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdOrder> ProdOrders { get; set; }
         public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProdOrder> ProdOrders1 { get; set; }
     }
 }

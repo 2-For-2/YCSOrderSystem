@@ -16,7 +16,7 @@ namespace YCSOrderSystem.Models
     {
         public int OrderNum { get; set; }
         public int ProdNum { get; set; }
-        public int Quantity { get; set; }
+        public Nullable<int> Quantity { get; set; }
     
         public virtual OrderTable OrderTable { get; set; }
         public virtual Product Product { get; set; }

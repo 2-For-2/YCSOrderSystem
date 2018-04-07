@@ -89,9 +89,11 @@ namespace YCSOrderSystem.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(DataException)
+            catch(DataException ex)
             {
                 ModelState.AddModelError("", "Unable To Save Changes, Try Again");
+                string emessage = ex.InnerException.Message.ToString();
+                string eemessage = ex.InnerException.InnerException.Message.ToString();
             }
             return View(supplier);
         }

@@ -92,7 +92,7 @@ namespace YCSOrderSystem.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index","Users");
+                    return RedirectToAction("Index","Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
